@@ -1,5 +1,6 @@
 import React from 'react';
 import { NavLink } from "react-router-dom";
+import {motion} from 'framer-motion';
 import "./Header.css";
 import logo from "../../assets/images/eco-logo.png";
 import userIcon from "../../assets/images/user-icon.png";
@@ -46,14 +47,16 @@ const Header = () => {
             </div>
 
             <div className="nav__icons">
-              <span className='fav-icon'>
+              <span className='fav__icon'>
                 <i className="ri-heart-line"></i>
+                <span className="badge">1</span>
               </span>
               <span className="cart__icon">
                 <i className="ri-shopping-bag-line"></i>
+                <span className="badge">1</span>
               </span>
               <span>
-                <img src={userIcon} alt="user-icon" />
+                <motion.img whileTap={{scale : 1.2}} src={userIcon} alt="user-icon" />
               </span>
             </div>
 
