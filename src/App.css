@@ -19,6 +19,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  scroll-behavior: smooth;
 }
 
 body {
@@ -61,4 +62,9 @@ img {
 
 section {
   padding: 60px 0px;
+}
+
+.section__title{
+  color: var(--primary-color);
+  font-weight: 600;
 }
