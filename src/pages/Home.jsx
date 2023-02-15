@@ -11,15 +11,22 @@ import ProductsList from '../components/UI/ProductsList';
 
 const Home = () => {
 
-  const [data, setData] = useState(products);
+  const [trendingProducts, setTrendingProducts] = useState(products);
+  const [bestSalesProducts, setBestSalesProducts] = useState(products);
   const year = new Date().getFullYear()
 
+  // Trending products
   useEffect(() => {
-    const filteredProducts = products.filter(
+    const filteredTrendingProducts = products.filter(
       (item) => item.category === 'chair'
     );
 
-    setData(filteredProducts);
+    const filteredBestSalesProducts = products.filter(
+      (item) => item.category === 'sofa'
+    );
+
+    setTrendingProducts(filteredTrendingProducts);
+    setBestSalesProducts(filteredBestSalesProducts);
   }, []);
 
   return (
@@ -62,7 +69,20 @@ const Home = () => {
                 Trending Products
               </h2>
             </Col>
-            <ProductsList data={data} />
+            <ProductsList data={trendingProducts} />
+          </Row>
+        </Container>
+      </section>
+
+      <section className="best__sales">
+        <Container>
+          <Row>
+            <Col lg='12' className='text-center'>
+              <h2 className="section__title">
+                Best Sales
+              </h2>
+            </Col>
+            <ProductsList data={bestSalesProducts} />
           </Row>
         </Container>
       </section>
