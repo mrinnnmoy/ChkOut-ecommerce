@@ -97,7 +97,9 @@ const Footer = () => {
           <Col lg='12'>
             <p className="footer__copyright">
               Copyright {year} &#169; developed by
-              <a href='https://www.linkedin.com/in/mrinnnmoy/' target='_blank' rel='noreferrer' className='px-1'>
+              <a href='https://www.linkedin.com/in/mrinnnmoy/'
+                target='_blank' rel='noreferrer'
+                className='px-1'>
                 Mrinmoy Porel.
               </a>
               All rights reserved.

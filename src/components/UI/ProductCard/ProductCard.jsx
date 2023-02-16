@@ -1,5 +1,5 @@
 import React from 'react';
-import '../../styles/ProductCard.css';
+import './ProductCard.css';
 // import productImg from '../../assets/images/arm-chair-01.jpg';
 import { motion } from 'framer-motion';
 import { Col } from 'reactstrap';
