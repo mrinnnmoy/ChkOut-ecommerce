@@ -1,6 +1,6 @@
 import React from 'react';
 import './Footer.css';
-import logo from '../../assets/images/eco-logo.png';
+// import logo from '../../assets/images/eco-logo.png';
 import { Container, Row, Col, ListGroup, ListGroupItem } from 'reactstrap';
 import { Link } from 'react-router-dom';
 
@@ -14,9 +14,8 @@ const Footer = () => {
         <Row>
           <Col lg='4'>
             <div className="logo">
-              <img src={logo} alt="logo" />
               <div>
-                <h1>ChkOut</h1>
+                <h1 className='text-white'>ChkOut</h1>
               </div>
             </div>
             <p className="footer__text mt-4">
@@ -28,7 +27,7 @@ const Footer = () => {
 
           <Col lg='3'>
             <div className="footer__quick-links">
-              <h4 className="quick__Links-title">Top Categories</h4>
+              <h4 className="quick__links-title">Top Categories</h4>
               <ListGroup className='mb-3'>
                 <ListGroupItem className='ps-0 border-0'>
                   <Link to='#'>Mobile Phones</Link>
@@ -51,8 +50,8 @@ const Footer = () => {
 
           <Col lg='2'>
             <div className="footer__quick-links">
-              <h4 className="quick__Links-title">Useful Links</h4>
-              <ListGroup className='mb-3'>
+              <h4 className="quick__links-title">Useful Links</h4>
+              <ListGroup className='footer__contact'>
                 <ListGroupItem className='ps-0 border-0'>
                   <Link to='/shop'>Shop</Link>
                 </ListGroupItem>
@@ -74,19 +73,19 @@ const Footer = () => {
 
           <Col lg='3'>
             <div className="footer__quick-links">
-              <h4 className="quick__Links-title">Contact</h4>
-              <ListGroup className='mb-3'>
-                <ListGroupItem className='ps-0 border-0'>
+              <h4 className="quick__links-title">Contact</h4>
+              <ListGroup className='footer__contact'>
+                <ListGroupItem className='ps-0 border-0 d-flex align-items-center gap-2'>
                   <span><i className="ri-map-pin-line"></i></span>
                   <p>46 Graham Road, Kol-40.</p>
                 </ListGroupItem>
 
-                <ListGroupItem className='ps-0 border-0'>
+                <ListGroupItem className='ps-0 border-0 d-flex align-items-center gap-2'>
                   <span><i className="ri-phone-line"></i></span>
                   <p>+91-1203456789</p>
                 </ListGroupItem>
 
-                <ListGroupItem className='ps-0 border-0'>
+                <ListGroupItem className='ps-0 border-0 d-flex align-items-center gap-2'>
                   <span><i className="ri-mail-line"></i></span>
                   <p>chkout.support@gmail.com</p>
                 </ListGroupItem>
