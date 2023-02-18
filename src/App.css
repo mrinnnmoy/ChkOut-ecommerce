@@ -74,3 +74,16 @@ section {
     padding: 20px;
   }
 }
+
+body::-webkit-scrollbar {
+  width: 8px;
+}
+
+body::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
+body::-webkit-scrollbar-thumb {
+  background: var(--small-text-color);
+  border-radius: 8px;
+}
