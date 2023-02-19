@@ -1,9 +1,11 @@
 import React from 'react';
 import { Container, Row, Col } from 'reactstrap';
 import { useParams } from "react-router-dom";
-import products from './../assets/data/products';
-import Helmet from './../components/Helmet/Helmet';
-import CommonSection from './../components/UI/CommonSection/CommonSection';
+import products from '../../assets/data/products';
+import Helmet from '../../components/Helmet/Helmet';
+import CommonSection from '../../components/UI/CommonSection/CommonSection';
+import "./ProductDetails.css";
+import { motion } from 'framer-motion';
 
 const ProductDetails = () => {
 
@@ -14,7 +16,7 @@ const ProductDetails = () => {
 
   return (
     <Helmet title={productName}>
-      <CommonSection />
+      <CommonSection title={productName} />
 
       <section className='pt-0'>
         <Container>
@@ -25,7 +27,7 @@ const ProductDetails = () => {
             <Col lg='6'>
               <div className="product__details">
                 <h2>{productName}</h2>
-                <div className="product__rating">
+                <div className="product__rating d-flex align-items-center gap-5 mb-3">
                   <div>
                     <span><i className="ri-star-s-fill"></i></span>
                     <span><i className="ri-star-s-fill"></i></span>
@@ -33,11 +35,13 @@ const ProductDetails = () => {
                     <span><i className="ri-star-s-fill"></i></span>
                     <span><i className="ri-star-half-s-line"></i></span>
                   </div>
-                  <p>({avgRating} ratings)</p>
+                  <p>
+                    (<span>{avgRating}</span> ratings)
+                  </p>
                 </div>
-                <span>{price}</span>
-                <p>{shortDesc}</p>
-                <button className="buy__btn">Add to Cart</button>
+                <span className='product__price'>${price}</span>
+                <p className='mt-3'>{shortDesc}</p>
+                <motion.button whileTap={{ scale: 1.2 }} className="buy__btn">Add to Cart</motion.button>
               </div>
             </Col>
           </Row>
