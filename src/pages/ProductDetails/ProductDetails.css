@@ -21,12 +21,26 @@
     font-weight: 500;
 }
 
-.tab__wrapper{
+.tab__wrapper {
     color: var(--primary-color);
     font-weight: 500;
     font-size: 1rem;
+    cursor: pointer;
 }
 
-.active__tab{
+.active__tab {
     font-weight: 600;
+}
+
+.tab__content p {
+    line-height: 30px;
+}
+
+.review__wrapper ul li span {
+    color: coral;
+    font-weight: 600;
+}
+
+.review__wrapper ul li p {
+    margin-top: 10px;
 }
