@@ -117,7 +117,7 @@ const products = [
   },
   {
     id: "04",
-    productName: "Fllufy Sheep Sofa",
+    productName: "Fluffy Sheep Sofa",
     imgUrl: productImg04,
     category: "sofa",
     price: 163,
