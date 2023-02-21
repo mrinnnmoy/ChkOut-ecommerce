@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { Container, Row, Col } from 'reactstrap';
 import { useParams } from "react-router-dom";
 import products from '../../assets/data/products';
@@ -7,10 +7,17 @@ import CommonSection from '../../components/UI/CommonSection/CommonSection';
 import "./ProductDetails.css";
 import { motion } from 'framer-motion';
 import ProductsList from './../../components/UI/ProductsList';
+import { useDispatch } from 'react-redux';
+import { cartActions } from '../../redux/slices/cartSlice';
+import { toast } from 'react-toastify';
 
 const ProductDetails = () => {
 
   const [tab, setTab] = useState('desc');
+  const reviewUser = useRef('')
+  const reviewMsg = useRef('')
+  const dispatch = useDispatch()
+
   const [rating, setRating] = useState(null);
   const { id } = useParams();
   const product = products.find((item) => item.id === id);
@@ -18,6 +25,23 @@ const ProductDetails = () => {
   const { imgUrl, productName, price, avgRating, reviews, description, shortDesc, category } = product;
 
   const relatedProducts = products.filter(item => item.category === category)
+  const submitHandler = (e) => {
+    e.preventDefault()
+
+    const reviewUserName = reviewUser.current.value
+    const reviewUserMsg = reviewMsg.current.value
+  }
+
+  const addToCart = () => {
+    dispatch(cartActions.addItem({
+      id,
+      image: imgUrl,
+      productName,
+      price,
+    })
+    );
+    toast.success('Product added successfully');
+  }
 
   return (
     <Helmet title={productName}>
@@ -49,7 +73,7 @@ const ProductDetails = () => {
                   <span>Category: {category.toUpperCase()}</span>
                 </div>
                 <p className='mt-3'>{shortDesc}</p>
-                <motion.button whileTap={{ scale: 1.2 }} className="buy__btn">Add to Cart</motion.button>
+                <motion.button whileTap={{ scale: 1.2 }} className="buy__btn" onClick={addToCart}>Add to Cart</motion.button>
               </div>
             </Col>
           </Row>
@@ -82,9 +106,9 @@ const ProductDetails = () => {
 
                     <div className="review__form">
                       <h4>Leave your experience</h4>
-                      <form action="">
+                      <form action="" onSubmit={submitHandler}>
                         <div className="form__group">
-                          <input type="text" placeholder='Enter name' />
+                          <input type="text" placeholder='Enter name' ref={reviewUser} />
                         </div>
                         <div className="form__group d-flex align-items-center gap-5">
                           <span>1<i className="ri-star-s-fill"></i></span>
@@ -94,7 +118,7 @@ const ProductDetails = () => {
                           <span>5<i className="ri-star-s-fill"></i></span>
                         </div>
                         <div className="form__group">
-                          <textarea rows={4} type="text" placeholder='Review Message...' />
+                          <textarea rows={4} type="text" placeholder='Review Message...' ref={reviewMsg} />
                         </div>
                         <button type='submit' className="buy__btn">
                           Submit
