@@ -3,10 +3,9 @@ import Helmet from './../../components/Helmet/Helmet';
 import "./Cart.css";
 import CommonSection from './../../components/UI/CommonSection/CommonSection';
 import { Container, Row, Col } from 'reactstrap';
-import tdImg from "../../assets/images/arm-chair-01.jpg";
 import { motion } from 'framer-motion';
 import { cartActions } from './../../redux/slices/cartSlice';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
 const Cart = () => {
 
@@ -32,17 +31,7 @@ const Cart = () => {
                   </thead>
                   <tbody>
                     {cartItems.map((item, index) => (
-                      <tr key={index}>
-                        <td>
-                          <img src={item.imgUrl} alt="" />
-                        </td>
-                        <td>{item.productName}</td>
-                        <td>${item.price}</td>
-                        <td>{item.quantity}</td>
-                        <td>
-                          <motion.i whileTap={{ scale: 1.2 }} className="ri-delete-bin-line"></motion.i>
-                        </td>
-                      </tr>
+                      <Tr item={item} key={index} />
                     ))}
                   </tbody>
                 </table>
@@ -55,5 +44,27 @@ const Cart = () => {
     </Helmet>
   )
 };
+
+const Tr = ({ item }) => {
+  const dispatch = useDispatch()
+  const deleteProduct = () => {
+    dispatch(cartActions.deleteItem(item.id))
+  }
+  return <tr>
+    <td>
+      <img src={item.imgUrl} alt="" />
+    </td>
+    <td>{item.productName}</td>
+    <td>${item.price}</td>
+    <td>{item.quantity}</td>
+    <td>
+      <motion.i
+        whileTap={{ scale: 1.2 }}
+        onClick={deleteProduct}
+        className="ri-delete-bin-line">
+      </motion.i>
+    </td>
+  </tr>
+}
 
 export default Cart;
