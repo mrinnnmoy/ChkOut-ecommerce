@@ -1,5 +1,5 @@
 import React, { useRef, useEffect } from 'react';
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { motion } from 'framer-motion';
 import "./Header.css";
 import logo from "../../assets/images/eco-logo.png";
@@ -28,7 +28,8 @@ const Header = () => {
   const headerRef = useRef(null)
   const totalQuantity = useSelector(state => state.cart.totalQuantity)
 
-  const menuRef = useRef(null)
+  const menuRef = useRef(null);
+  const navigate = useNavigate();
 
   const stickyHeaderFunc = () => {
     window.addEventListener('scroll', () => {
@@ -41,12 +42,16 @@ const Header = () => {
   }
 
   useEffect(() => {
-    stickyHeaderFunc()
+    stickyHeaderFunc();
 
     return () => window.removeEventListener('scroll', stickyHeaderFunc);
   });
 
-  const menuToggle = () => menuRef.current.classList.toggle('active__menu')
+  const menuToggle = () => menuRef.current.classList.toggle('active__menu');
+
+  const navigateToCart = () => {
+    navigate('/cart')
+  }
 
   return (
     <header className='header' ref={headerRef}>
@@ -76,7 +81,7 @@ const Header = () => {
                 <i className="ri-heart-line"></i>
                 <span className="badge">1</span>
               </span>
-              <span className="cart__icon">
+              <span className="cart__icon" onClick={navigateToCart}>
                 <i className="ri-shopping-bag-line"></i>
                 <span className="badge">{totalQuantity}</span>
               </span>
