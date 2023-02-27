@@ -3,8 +3,13 @@ import { Container, Row, Col, Form, FormGroup } from "reactstrap";
 import Helmet from '../../components/Helmet/Helmet';
 import CommonSection from '../../components/UI/CommonSection/CommonSection';
 import "./Checkout.css";
+import { useSelector } from 'react-redux';
 
 const Checkout = () => {
+
+  const totalQty = useSelector(state => state.cart.totalQuantity)
+  const totalAmount = useSelector(state => state.cart.totalAmount)
+
   return (
     <Helmet title="Checkout">
       <CommonSection title="Checkout" />
@@ -47,10 +52,10 @@ const Checkout = () => {
             <Col lg='4'>
               <div className="checkout__cart">
                 <h6>
-                  Total Qty: <span>$0</span>
+                  Total Qty: <span>{totalQty} items</span>
                 </h6>
                 <h6>
-                  Subtotal: <span>$120</span>
+                  Subtotal: <span>${totalAmount}</span>
                 </h6>
                 <h6>
                   <span>
@@ -60,7 +65,7 @@ const Checkout = () => {
                   <span>$0</span>
                 </h6>
                 <h4>
-                  Total Cost: <span>$120</span>
+                  Total Cost: <span>${totalAmount}</span>
                 </h4>
                 <button className="chk__btn auth__btn w-100">
                   Place an order
