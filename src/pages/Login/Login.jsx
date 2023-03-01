@@ -15,7 +15,7 @@ const Login = () => {
         <Container>
           <Row>
             <Col lg='6' className='m-auto text-center'>
-              <h3 className='fw-bold mb-4'>Login</h3>
+              <h3 className='fw-bold mb-4'>LogIn</h3>
 
               <Form className='auth__form'>
                 <FormGroup className='form__group'>
@@ -26,7 +26,7 @@ const Login = () => {
                   <input type="password" placeholder='Enter your Password' value={password} onChange={e => setPassword(e.target.value)} />
                 </FormGroup>
 
-                <button type='submit' className="buy__btn auth__btn">Login</button>
+                <button type='submit' className="buy__btn auth__btn">LogIn</button>
                 <p>Don't have an account?{" "}<Link to='/signup'>SignUp</Link></p>
               </Form>
             </Col>
