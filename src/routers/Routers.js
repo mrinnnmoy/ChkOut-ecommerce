@@ -5,7 +5,7 @@ import Shop from "../pages/Shop/Shop";
 import Cart from "../pages/Cart/Cart";
 import ProductDetails from "../pages/ProductDetails/ProductDetails";
 import Checkout from "../pages/Checkout/Checkout";
-import Login from "../pages/Login";
+import Login from "../pages/Login/Login";
 import Signup from "../pages/Signup";
 
 const Routers = () => {
