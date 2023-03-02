@@ -3,28 +3,57 @@ import Helmet from '../components/Helmet/Helmet';
 import { Container, Row, Col, Form, FormGroup } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import "../pages/Login/Login.css";
-import { createUserWithEmailAndPassword } from "firebase/auth";
-import { auth } from '../firebase.config';
-
+import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
+import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
+import { setDoc, doc } from 'firebase/firestore';
+import { auth } from "../firebase.config.js";
+import { storage } from "../firebase.config.js";
+import { db } from "../firebase.config.js";
+import { toast } from "react-toastify";
 
 const Signup = () => {
 
-  const [username, setUsername] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [file, setFile] = useState(null);
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(false);
 
   const signup = async (e) => {
-    e.preventDefault()
-    setLoading(true)
-    try {
-      const userCredential = await createUserWithEmailAndPassword(auth, email, password)
+    e.preventDefault();
+    setLoading(true);
 
-      const user = userCredential.user
+    try {
+      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+
+      const user = await userCredential.user;
+
+      const storageRef = ref(storage, `images/${Date.now() + username}`);
+      const uploadTask = uploadBytesResumable(storageRef, file);
+
+      uploadTask.on((error) => {
+        console.log(error.message)
+      }, () => {
+        getDownloadURL(uploadTask.snapshot.ref).then(async (downloadURL) => {
+          // Update user profile
+          await updateProfile(user, {
+            displayName: username,
+            photoURL: downloadURL,
+          });
+
+          // Store user data in firestore database
+          await setDoc(doc(db, "users", user.uid), {
+            uid: user.uid,
+            displayName: username,
+            email,
+            photoURL: downloadURL,
+          })
+        });
+      });
+
       console.log(user)
     } catch (error) {
-
+      toast.error('something went wrong');
     }
   }
 
