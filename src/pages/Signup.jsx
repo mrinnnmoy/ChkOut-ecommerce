@@ -32,30 +32,31 @@ const Signup = () => {
       const uploadTask = uploadBytesResumable(storageRef, file);
 
       uploadTask.on((error) => {
-        console.log(error.message)
-      }, () => {
-        getDownloadURL(uploadTask.snapshot.ref).then(async (downloadURL) => {
-          // Update user profile
-          await updateProfile(user, {
-            displayName: username,
-            photoURL: downloadURL,
+        console.log(error.message);
+      },
+        () => {
+          getDownloadURL(uploadTask.snapshot.ref).then(async (downloadURL) => {
+            // update user profile
+            await updateProfile(user, {
+              displayName: username,
+              photoURL: downloadURL,
+            });
+
+            // store user data in firestore database
+            await setDoc(doc(db, "users", user.uid), {
+              uid: user.uid,
+              displayName: username,
+              email,
+              photoURL: downloadURL,
+            });
           });
-
-          // Store user data in firestore database
-          await setDoc(doc(db, "users", user.uid), {
-            uid: user.uid,
-            displayName: username,
-            email,
-            photoURL: downloadURL,
-          })
         });
-      });
 
-      console.log(user)
+      console.log(user);
     } catch (error) {
-      toast.error('something went wrong');
+      toast.error('Something went wrong');
     }
-  }
+  };
 
   return (
     <Helmet title="SignUp">
