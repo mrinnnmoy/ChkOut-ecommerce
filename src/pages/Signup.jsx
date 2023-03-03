@@ -10,6 +10,7 @@ import { auth } from "../firebase.config.js";
 import { storage } from "../firebase.config.js";
 import { db } from "../firebase.config.js";
 import { toast } from "react-toastify";
+import { useNavigate } from 'react-router-dom';
 
 const Signup = () => {
 
@@ -18,6 +19,8 @@ const Signup = () => {
   const [password, setPassword] = useState("");
   const [file, setFile] = useState(null);
   const [loading, setLoading] = useState(false);
+
+  const navigate = useNavigate()
 
   const signup = async (e) => {
     e.preventDefault();
@@ -52,8 +55,12 @@ const Signup = () => {
           });
         });
 
-      console.log(user);
+      setLoading(false)
+      toast.success("Account created")
+      navigate('/login')
+
     } catch (error) {
+      setLoading(false)
       toast.error('Something went wrong');
     }
   };
@@ -63,30 +70,33 @@ const Signup = () => {
       <section>
         <Container>
           <Row>
-            <Col lg='6' className='m-auto text-center'>
-              <h3 className='fw-bold mb-4'>SignUp</h3>
+            {
+              loading ? (<Col lg='12' className='text-center'><h5 className='fw-bold'>Loading....</h5></Col>) : (<Col lg='6' className='m-auto text-center'>
+                <h3 className='fw-bold mb-4'>SignUp</h3>
 
-              <Form className='auth__form' onSubmit={signup}>
-                <FormGroup className='form__group'>
-                  <input type="text" placeholder='Enter your Username' value={username} onChange={(e) => setUsername(e.target.value)} />
-                </FormGroup>
+                <Form className='auth__form' onSubmit={signup}>
+                  <FormGroup className='form__group'>
+                    <input type="text" placeholder='Enter your Username' value={username} onChange={(e) => setUsername(e.target.value)} />
+                  </FormGroup>
 
-                <FormGroup className='form__group'>
-                  <input type="email" placeholder='Enter your Email' value={email} onChange={(e) => setEmail(e.target.value)} />
-                </FormGroup>
+                  <FormGroup className='form__group'>
+                    <input type="email" placeholder='Enter your Email' value={email} onChange={(e) => setEmail(e.target.value)} />
+                  </FormGroup>
 
-                <FormGroup className='form__group'>
-                  <input type="password" placeholder='Enter your Password' value={password} onChange={(e) => setPassword(e.target.value)} />
-                </FormGroup>
+                  <FormGroup className='form__group'>
+                    <input type="password" placeholder='Enter your Password' value={password} onChange={(e) => setPassword(e.target.value)} />
+                  </FormGroup>
 
-                <FormGroup className='form__group'>
-                  <input type="file" onChange={(e) => setFile(e.target.files[0])} />
-                </FormGroup>
+                  <FormGroup className='form__group'>
+                    <input type="file" onChange={(e) => setFile(e.target.files[0])} />
+                  </FormGroup>
 
-                <button type='submit' className="buy__btn auth__btn">SignUp</button>
-                <p>Already have an account?{" "}<Link to='/login'>LogIn</Link></p>
-              </Form>
-            </Col>
+                  <button type='submit' className="buy__btn auth__btn">SignUp</button>
+                  <p>Already have an account?{" "}<Link to='/login'>LogIn</Link></p>
+                </Form>
+              </Col>
+              )
+            }
           </Row>
         </Container>
       </section>
